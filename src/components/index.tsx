@@ -1,3 +1,4 @@
+import AudioPlayer from "./AudioPlayer";
 import Layout from "./Layout";
 
-export { Layout };
+export { AudioPlayer, Layout };

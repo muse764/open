@@ -9,19 +9,15 @@ export default function ArtistPage() {
   const id = window.location.pathname.split("/")[2];
 
   function retrieveArtist() {
-    fetch(`${api_url}/artists/${id}`, {
-      credentials: "include",
-    })
-      .then((res) => {
-        if (res.status === 200) {
-          res.json().then((data) => {
-            setArtist(data);
-          });
-        } else {
-          window.location.href = "/notfound";
-        }
-      })
-      .catch((_) => {});
+    fetch(`${api_url}/artists/${id}`).then((res) => {
+      if (res.status === 200) {
+        res.json().then((data) => {
+          setArtist(data);
+        });
+      } else {
+        window.location.href = "/notfound";
+      }
+    });
   }
 
   useEffect(() => {
@@ -30,8 +26,7 @@ export default function ArtistPage() {
 
   return (
     <div>
-      <h1>Artist</h1>
-      <p>{artist.full_name}</p>
+      <h1>{artist.full_name}</h1>
     </div>
   );
 }

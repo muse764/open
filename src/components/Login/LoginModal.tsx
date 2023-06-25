@@ -6,18 +6,19 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { FormikProps } from "formik";
 
 export default function LoginModal({
   open,
   handleClose,
   formik,
 }: {
-  open: any;
-  handleClose: any;
+  open: boolean;
+  handleClose: () => void;
   formik: any;
 }) {
   const style = {
-    position: "absolute" as "absolute",
+    position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
@@ -26,7 +27,7 @@ export default function LoginModal({
     boxShadow: 24,
     borderRadius: 2,
     p: 4,
-  };
+  } as const;
 
   return (
     <Modal open={open} onClose={handleClose}>

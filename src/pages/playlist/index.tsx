@@ -9,19 +9,15 @@ export default function PlaylistPage() {
   const id = window.location.pathname.split("/")[2];
 
   function retrievePlaylist() {
-    fetch(`${api_url}/playlists/${id}`, {
-      credentials: "include",
-    })
-      .then((res) => {
-        if (res.status === 200) {
-          res.json().then((data) => {
-            setPlaylist(data);
-          });
-        } else {
-          window.location.href = "/notfound";
-        }
-      })
-      .catch((_) => {});
+    fetch(`${api_url}/playlists/${id}`).then((res) => {
+      if (res.status === 200) {
+        res.json().then((data) => {
+          setPlaylist(data);
+        });
+      } else {
+        window.location.href = "/notfound";
+      }
+    });
   }
 
   useEffect(() => {

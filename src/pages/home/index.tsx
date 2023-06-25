@@ -9,60 +9,28 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import {
+  fetchAlbums,
+  fetchArtists,
+  fetchPlaylists,
+  fetchUsers,
+} from "../../redux/actions";
 
 export default function HomePage() {
-  const [albums, setAlbums] = useState([]);
-  const [artists, setArtists] = useState([]);
-  const [playlists, setPlaylists] = useState([]);
-  const [users, setUsers] = useState([]);
+  const dispatch = useAppDispatch();
+  const albums = useAppSelector((state) => state.album.albums);
+  const artists = useAppSelector((state) => state.artist.artists);
+  const playlists = useAppSelector((state) => state.playlist.playlists);
+  const users = useAppSelector((state) => state.user.users);
 
   const api_url = import.meta.env.VITE_API_URL;
 
-  function retrieveAlbums() {
-    fetch(`${api_url}/albums?limit=5&offset=0`, {
-      credentials: "include",
-    }).then((res) =>
-      res.json().then((data) => {
-        setAlbums(data.albums);
-      })
-    );
-  }
-
-  function retrieveArtists() {
-    fetch(`${api_url}/artists?limit=5&offset=0`, {
-      credentials: "include",
-    }).then((res) =>
-      res.json().then((data) => {
-        setArtists(data.artists);
-      })
-    );
-  }
-
-  function retrievePlaylists() {
-    fetch(`${api_url}/playlists?limit=5&offset=0`, {
-      credentials: "include",
-    }).then((res) =>
-      res.json().then((data) => {
-        setPlaylists(data.playlists);
-      })
-    );
-  }
-
-  function retrieveUsers() {
-    fetch(`${api_url}/users?limit=5&offset=0`, {
-      credentials: "include",
-    }).then((res) =>
-      res.json().then((data) => {
-        setUsers(data.users);
-      })
-    );
-  }
-
   useEffect(() => {
-    retrieveAlbums();
-    retrieveArtists();
-    retrievePlaylists();
-    retrieveUsers();
+    dispatch(fetchAlbums());
+    dispatch(fetchArtists());
+    dispatch(fetchPlaylists());
+    dispatch(fetchUsers());
   }, []);
 
   return (
@@ -73,13 +41,15 @@ export default function HomePage() {
         </Typography>
         <Stack direction="row" gap={2}>
           {albums.map((album: any) => (
-            <NavLink to={`/album/${album.id}`}>
-              <Card sx={{ maxWidth: 345 }} key={album.id}>
+            <NavLink key={album.id} to={`/album/${album.id}`}>
+              <Card sx={{ maxWidth: 345 }}>
                 <CardActionArea>
                   <CardMedia
                     component="img"
                     height="140"
-                    image={`${api_url}/media?path=public/users/e242bc9a0ceea852400d3f927f07557e4a36b9f34e7f/albums/f97814b5-8f86-4c94-b7d8-bee4c65c37b9/images/27a8b9d0-f984-4731-8fdc-0a3ae96babc6.jpeg`}
+                    {...(album.images.length > 0 && {
+                      image: `${api_url}/media?path=${album.images[0].file}`,
+                    })}
                     alt={album.name}
                   />
                   <CardContent>
@@ -105,13 +75,15 @@ export default function HomePage() {
         </Typography>
         <Stack direction="row" gap={2}>
           {artists.map((artist: any) => (
-            <NavLink to={`/artist/${artist.id}`}>
-              <Card sx={{ maxWidth: 345 }} key={artist.id}>
+            <NavLink key={artist.id} to={`/artist/${artist.id}`}>
+              <Card sx={{ maxWidth: 345 }}>
                 <CardActionArea>
                   <CardMedia
                     component="img"
                     height="140"
-                    image={`${api_url}/media?path=public/users/e242bc9a0ceea852400d3f927f07557e4a36b9f34e7f/albums/f97814b5-8f86-4c94-b7d8-bee4c65c37b9/images/27a8b9d0-f984-4731-8fdc-0a3ae96babc6.jpeg`}
+                    {...(artist.images.length > 0 && {
+                      image: `${api_url}/media?path=${artist.images[0].file}`,
+                    })}
                     alt={artist.full_name}
                   />
                   <CardContent>
@@ -132,13 +104,15 @@ export default function HomePage() {
         </Typography>
         <Stack direction="row" gap={2}>
           {playlists.map((Playlist: any) => (
-            <NavLink to={`/Playlist/${Playlist.id}`}>
-              <Card sx={{ maxWidth: 345 }} key={Playlist.id}>
+            <NavLink key={Playlist.id} to={`/Playlist/${Playlist.id}`}>
+              <Card sx={{ maxWidth: 345 }}>
                 <CardActionArea>
                   <CardMedia
                     component="img"
                     height="140"
-                    image={`${api_url}/media?path=public/users/e242bc9a0ceea852400d3f927f07557e4a36b9f34e7f/albums/f97814b5-8f86-4c94-b7d8-bee4c65c37b9/images/27a8b9d0-f984-4731-8fdc-0a3ae96babc6.jpeg`}
+                    {...(Playlist.images.length > 0 && {
+                      image: `${api_url}/media?path=${Playlist.images[0].file}`,
+                    })}
                     alt={Playlist.name}
                   />
                   <CardContent>
@@ -162,13 +136,15 @@ export default function HomePage() {
         </Typography>
         <Stack direction="row" gap={2}>
           {users.map((user: any) => (
-            <NavLink to={`/user/${user.id}`}>
-              <Card sx={{ maxWidth: 345 }} key={user.id}>
+            <NavLink key={user.id} to={`/user/${user.id}`}>
+              <Card sx={{ maxWidth: 345 }}>
                 <CardActionArea>
                   <CardMedia
                     component="img"
                     height="140"
-                    image={`${api_url}/media?path=public/users/e242bc9a0ceea852400d3f927f07557e4a36b9f34e7f/albums/f97814b5-8f86-4c94-b7d8-bee4c65c37b9/images/27a8b9d0-f984-4731-8fdc-0a3ae96babc6.jpeg`}
+                    {...(user.images.length > 0 && {
+                      image: `${api_url}/media?path=${user.images[0].file}`,
+                    })}
                     alt={user.username}
                   />
                   <CardContent>

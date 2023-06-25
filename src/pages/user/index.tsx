@@ -12,25 +12,19 @@ export default function UserPage() {
   const id = window.location.pathname.split("/")[2];
 
   function retrieveUser() {
-    fetch(`${api_url}/users/${id}`, {
-      credentials: "include",
-    })
-      .then((res) => {
-        if (res.status === 200) {
-          res.json().then((data) => {
-            setUser(data.user);
-          });
-        } else {
-          window.location.href = "/notfound";
-        }
-      })
-      .catch((_) => {});
+    fetch(`${api_url}/users/${id}`).then((res) => {
+      if (res.status === 200) {
+        res.json().then((data) => {
+          setUser(data.user);
+        });
+      } else {
+        window.location.href = "/notfound";
+      }
+    });
   }
 
   function retrievePlaylists() {
-    fetch(`${api_url}/users/${id}/playlists?limit=10&offset=0`, {
-      credentials: "include",
-    }).then((res) =>
+    fetch(`${api_url}/users/${id}/playlists?limit=10&offset=0`).then((res) =>
       res.json().then((data) => {
         setPlaylists(data.playlists);
       })
@@ -52,7 +46,7 @@ export default function UserPage() {
         />
       ))} */}
 
-      <p>{user.username}</p>
+      <h1>{user.username}</h1>
 
       {playlists.map((playlist: any) => (
         <p key={playlist.id}>{playlist.name}</p>

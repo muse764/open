@@ -7,19 +7,15 @@ export default function PlaylistsPage() {
   const id = window.location.pathname.split("/")[2];
 
   function retrievePlaylists() {
-    fetch(`${api_url}/users/${id}/playlists?limit=100&offset=0`, {
-      credentials: "include",
-    })
-      .then((res) => {
-        if (res.status === 200) {
-          res.json().then((data) => {
-            setPlaylists(data.playlists);
-          });
-        } else {
-          window.location.href = "/notfound";
-        }
-      })
-      .catch((_) => {});
+    fetch(`${api_url}/users/${id}/playlists?limit=100&offset=0`).then((res) => {
+      if (res.status === 200) {
+        res.json().then((data) => {
+          setPlaylists(data.playlists);
+        });
+      } else {
+        window.location.href = "/notfound";
+      }
+    });
   }
 
   useEffect(() => {

@@ -9,9 +9,7 @@ export default function TrackPage() {
   const id = window.location.pathname.split("/")[2];
 
   function retrievePlaylist() {
-    fetch(`${api_url}/tracks/${id}`, {
-      credentials: "include",
-    }).then((res) => {
+    fetch(`${api_url}/tracks/${id}`).then((res) => {
       if (res.status === 200) {
         res.json().then((data) => {
           setTrack(data);
