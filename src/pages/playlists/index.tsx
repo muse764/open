@@ -1,33 +1,25 @@
-import { useEffect, useState } from "react";
+import { useGetUserPlaylistsQuery } from "../../redux/services/userApi";
+import { Layout } from "../../components";
+import { Playlist } from "../../models/usersplaylists";
 
-export default function PlaylistsPage() {
-  const [playlists, setPlaylists] = useState([]);
-
-  const api_url = import.meta.env.VITE_API_URL;
+const PlaylistsPage = () => {
   const id = window.location.pathname.split("/")[2];
-
-  function retrievePlaylists() {
-    fetch(`${api_url}/users/${id}/playlists?limit=100&offset=0`).then((res) => {
-      if (res.status === 200) {
-        res.json().then((data) => {
-          setPlaylists(data.playlists);
-        });
-      } else {
-        window.location.href = "/notfound";
-      }
-    });
-  }
-
-  useEffect(() => {
-    retrievePlaylists();
-  }, []);
+  const { playlists } = useGetUserPlaylistsQuery({
+    id,
+    limit: 100,
+    offset: 0,
+  }).data || { playlists: [] };
 
   return (
-    <div>
-      <h1>Playlists</h1>
-      {playlists.map((playlist: any) => (
-        <p key={playlist.id}>{playlist.name}</p>
-      ))}
-    </div>
+    <>
+      <Layout>
+        <h1>Playlists</h1>
+        {playlists.map((playlist: Playlist) => (
+          <p key={playlist.id}>{playlist.name}</p>
+        ))}
+      </Layout>
+    </>
   );
-}
+};
+
+export default PlaylistsPage;

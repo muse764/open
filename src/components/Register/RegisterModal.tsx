@@ -6,18 +6,19 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { FormikProps } from "formik";
 
-export default function RegisterModal({
+const RegisterModal = ({
   open,
   handleClose,
   formik,
 }: {
-  open: any;
+  open: boolean;
   handleClose: any;
   formik: any;
-}) {
+}) => {
   const style = {
-    position: "absolute" as "absolute",
+    position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
@@ -26,7 +27,7 @@ export default function RegisterModal({
     boxShadow: 24,
     borderRadius: 2,
     p: 4,
-  };
+  } as const;
 
   return (
     <Modal open={open} onClose={handleClose}>
@@ -42,7 +43,7 @@ export default function RegisterModal({
             sx={{ mt: 1 }}
           >
             <TextField
-              error={!!(formik.touched.full_name && formik.errors.email)}
+              error={!!(formik.touched.full_name && formik.errors.full_name)}
               helperText={formik.touched.full_name && formik.errors.full_name}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
@@ -110,11 +111,15 @@ export default function RegisterModal({
               Register
             </Button>
             {formik.errors.submit && (
-              <Typography color="error">{formik.errors.submit}</Typography>
+              <Typography color="error" component="span">
+                {formik.errors.submit}
+              </Typography>
             )}
           </Box>
         </Box>
       </Container>
     </Modal>
   );
-}
+};
+
+export default RegisterModal;

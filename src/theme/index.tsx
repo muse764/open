@@ -1,10 +1,6 @@
 import { ThemeProvider as MuiThemeProvider, createTheme } from "@mui/material";
 
-export default function ThemeProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const darkTheme = createTheme({
     palette: {
       mode: "dark",
@@ -15,4 +11,6 @@ export default function ThemeProvider({
   });
 
   return <MuiThemeProvider theme={darkTheme}>{children}</MuiThemeProvider>;
-}
+};
+
+export default ThemeProvider;

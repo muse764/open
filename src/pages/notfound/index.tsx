@@ -1,7 +1,7 @@
-import { Button, Link } from "@mui/material";
+import { Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
 
-export default function NotFoundPage() {
+const NotFoundPage = () => {
   return (
     <div>
       <h1>Page not available</h1>
@@ -13,4 +13,6 @@ export default function NotFoundPage() {
       </Button>
     </div>
   );
-}
+};
+
+export default NotFoundPage;

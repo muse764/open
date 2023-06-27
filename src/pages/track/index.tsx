@@ -1,32 +1,19 @@
-import { useEffect, useState } from "react";
+import { Layout } from "../../components";
+import { useGetTrackByIdQuery } from "../../redux/services/trackApi";
 
-export default function TrackPage() {
-  const [track, setTrack] = useState({
-    name: "",
-  });
-
-  const api_url = import.meta.env.VITE_API_URL;
+const TrackPage = () => {
   const id = window.location.pathname.split("/")[2];
-
-  function retrievePlaylist() {
-    fetch(`${api_url}/tracks/${id}`).then((res) => {
-      if (res.status === 200) {
-        res.json().then((data) => {
-          setTrack(data);
-        });
-      } else {
-        window.location.href = "/notfound";
-      }
-    });
-  }
-
-  useEffect(() => {
-    retrievePlaylist();
-  }, []);
+  const { data } = useGetTrackByIdQuery(id);
 
   return (
-    <div>
-      <p>{track.name}</p>
-    </div>
+    <>
+      <Layout>
+        <div>
+          <h1>{data?.name}</h1>
+        </div>
+      </Layout>
+    </>
   );
-}
+};
+
+export default TrackPage;

@@ -1,15 +1,23 @@
 import Cookies from "js-cookie";
 
-export const saveAccessToken = (res: any) => {
-  const accessToken = res.accessToken;
-  Cookies.set("accessToken", accessToken, { expires: 7 });
+export const saveAccessToken = (response: any) => {
+  Cookies.set("accessToken", response.accessToken, {
+    expires: 1,
+    sameSite: "none",
+  });
 };
 
-export const saveRefreshToken = (res: any) => {
-  const refreshToken = res.refreshToken;
-  Cookies.set("refreshToken", refreshToken, { expires: 30 });
+export const saveRefreshToken = (response: any) => {
+  Cookies.set("refreshToken", response.refreshToken, {
+    expires: 30,
+    sameSite: "none",
+  });
 };
 
 export const removeAccessToken = () => {
   Cookies.remove("accessToken");
+};
+
+export const removeRefreshToken = () => {
+  Cookies.remove("refreshToken");
 };

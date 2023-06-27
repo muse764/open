@@ -1,47 +1,52 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { RootObject, Track } from "../../models/player";
 
-const initialState = {
-  name: "",
-  file: "",
-  image: "",
-  artists: "",
-  volume: 0,
-  current: 0,
-  progress: 0,
-  duration: 0,
-  status: "paused",
+const initialState: RootObject = {
+  currentTracks: [],
+  currentIndex: 0,
+  isActive: false,
+  isPlaying: false,
+  activeTrack: {} as Track,
 };
 
-const userSlice = createSlice({
+const playerSlice = createSlice({
   name: "player",
   initialState,
   reducers: {
-    setPlayer(state, action: PayloadAction<any>) {
-      state.name = action.payload.name;
-      state.file = action.payload.file;
-      state.image = action.payload.image;
-      state.artists = action.payload.artists;
-      state.volume = action.payload.volume;
-      state.current = action.payload.current;
-      state.progress = action.payload.progress;
-      state.duration = action.payload.duration;
-      state.status = action.payload.status;
+    setActiveTrack: (state, action) => {
+      state.activeTrack = action.payload;
+
+      state.currentTracks = [...state.currentTracks, action.payload];
+      state.isActive = true;
     },
-    setVolume(state, action: PayloadAction<number>) {
-      state.volume = action.payload;
+
+    nextTrack: (state, action) => {
+      if (state.currentTracks[action.payload]) {
+        state.activeTrack = state.currentTracks[action.payload];
+      } else {
+        state.activeTrack = state.currentTracks[action.payload];
+      }
+
+      state.currentIndex = action.payload;
+      state.isActive = true;
     },
-    setCurrent(state, action: PayloadAction<number>) {
-      state.current = action.payload;
+
+    prevTrack: (state, action) => {
+      if (state.currentTracks[action.payload]) {
+        state.activeTrack = state.currentTracks[action.payload];
+      } else {
+        state.activeTrack = state.currentTracks[action.payload];
+      }
+
+      state.currentIndex = action.payload;
+      state.isActive = true;
     },
-    setProgress(state, action: PayloadAction<number>) {
-      state.progress = action.payload;
-    },
-    setDuration(state, action: PayloadAction<number>) {
-      state.duration = action.payload;
-    },
-    setStatus(state, action: PayloadAction<string>) {
-      state.status = action.payload;
+
+    playPause: (state, action) => {
+      state.isPlaying = action.payload;
     },
   },
 });
-export default userSlice;
+export const { setActiveTrack, nextTrack, prevTrack, playPause } =
+  playerSlice.actions;
+export default playerSlice.reducer;

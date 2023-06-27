@@ -1,4 +1,3 @@
-import { Route, Routes } from "react-router-dom";
 import {
   AlbumPage,
   ArtistPage,
@@ -12,23 +11,20 @@ import {
   AlbumsPage,
   SearchPage,
 } from "../pages";
+import { createBrowserRouter } from "react-router-dom";
 
-function Router() {
-  return (
-    <Routes>
-      <Route index element={<HomePage />} />
-      <Route path="/album/:id" element={<AlbumPage />} />
-      <Route path="/artist/:id" element={<ArtistPage />} />
-      <Route path="/artist/:id/albums" element={<AlbumsPage />} />
-      <Route path="/genre/:id" element={<GenrePage />} />
-      <Route path="/playlist/:id" element={<PlaylistPage />} />
-      <Route path="/search" element={<SearchPage />} />
-      <Route path="/track/:id" element={<TrackPage />} />
-      <Route path="/user/:id" element={<UserPage />} />
-      <Route path="/user/:id/playlists" element={<PlaylistsPage />} />
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
-  );
-}
+const Router = createBrowserRouter([
+  { path: "/", element: <HomePage /> },
+  { path: "/album/:id", element: <AlbumPage /> },
+  { path: "/artist/:id", element: <ArtistPage /> },
+  { path: "/artist/:id/albums", element: <AlbumsPage /> },
+  { path: "/genre/:id", element: <GenrePage /> },
+  { path: "/playlist/:id", element: <PlaylistPage /> },
+  { path: "/search", element: <SearchPage /> },
+  { path: "/track/:id", element: <TrackPage /> },
+  { path: "/user/:id", element: <UserPage /> },
+  { path: "/user/:id/playlists", element: <PlaylistsPage /> },
+  { path: "*", element: <NotFoundPage /> },
+]);
 
 export default Router;

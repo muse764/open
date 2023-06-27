@@ -1,4 +1,5 @@
 import {
+  Button,
   Card,
   CardContent,
   Divider,
@@ -14,10 +15,10 @@ import {
 import { NavLink } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
-import { useEffect, useState } from "react";
+import { useGetMyPlaylistsQuery } from "../../redux/services/meApi";
 import Cookies from "js-cookie";
 
-export default function SideBar({
+const SideBar = ({
   drawerWidth,
   handleLoginModalOpen,
   handleRegisterModalOpen,
@@ -27,7 +28,13 @@ export default function SideBar({
   handleLoginModalOpen: any;
   handleRegisterModalOpen: any;
   auth: boolean;
-}) {
+}) => {
+  const { data } = useGetMyPlaylistsQuery({
+    limit: 10,
+    offset: 0,
+    accessToken: Cookies.get("accessToken"),
+  });
+
   return (
     <Drawer
       variant="permanent"
@@ -105,6 +112,30 @@ export default function SideBar({
           </CardContent>
         </Card>
       )}
+      <Divider />
+      {auth && (
+        <>
+          <List>
+            {data?.playlists.map((playlist: any) => (
+              <ListItem
+                key={playlist.id}
+                disablePadding
+                sx={{ display: "block" }}
+              >
+                <ListItemButton>
+                  <ListItemText>
+                    <NavLink to={`/playlist/${playlist.id}`}>
+                      {playlist.name}
+                    </NavLink>
+                  </ListItemText>
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </>
+      )}
     </Drawer>
   );
-}
+};
+
+export default SideBar;

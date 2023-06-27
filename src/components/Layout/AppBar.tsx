@@ -5,22 +5,22 @@ import {
   MenuItem,
   Stack,
   Toolbar,
-  Typography,
 } from "@mui/material";
 import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function CustomAppBar({
+const CustomAppBar = ({
   drawerWidth,
   handleLogout,
   auth,
 }: {
   drawerWidth: number;
-  handleLogout: any;
-  auth: any;
-}) {
+  handleLogout: () => void;
+  auth: boolean;
+}) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -31,6 +31,8 @@ export default function CustomAppBar({
     setAnchorEl(null);
   };
 
+  const navigate = useNavigate();
+
   return (
     <AppBar
       position="fixed"
@@ -38,10 +40,10 @@ export default function CustomAppBar({
     >
       <Toolbar>
         <Stack direction="row">
-          <IconButton>
+          <IconButton onClick={() => navigate(-1)}>
             <KeyboardArrowLeftOutlinedIcon />
           </IconButton>
-          <IconButton>
+          <IconButton onClick={() => navigate(1)}>
             <KeyboardArrowRightOutlinedIcon />
           </IconButton>
         </Stack>
@@ -64,20 +66,30 @@ export default function CustomAppBar({
                 horizontal: "right",
               }}
               open={Boolean(anchorEl)}
-              onClose={handleClose}
+              onClose={() => {
+                handleClose();
+              }}
             >
               <MenuItem
                 onClick={() => {
-                  handleClose;
+                  handleClose();
                 }}
               >
                 Profile
               </MenuItem>
-              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleClose();
+                }}
+              >
+                Logout
+              </MenuItem>
             </Menu>
           </>
         )}
       </Toolbar>
     </AppBar>
   );
-}
+};
+
+export default CustomAppBar;

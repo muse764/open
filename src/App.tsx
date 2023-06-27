@@ -1,10 +1,16 @@
+import { RouterProvider } from "react-router-dom";
 import "./App.css";
 import Router from "./router";
+import ThemeProvider from "./theme";
 
-export default function App() {
+const App = () => {
   return (
     <>
-      <Router />
+      <ThemeProvider>
+        <RouterProvider router={Router} />
+      </ThemeProvider>
     </>
   );
-}
+};
+
+export default App;

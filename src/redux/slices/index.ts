@@ -1,7 +1,3 @@
-import albumSlice from "./album";
-import artistSlice from "./artist";
-import playlistSlice from "./playlist";
-import playerSlice from "./player";
-import userSlice from "./user";
+import playerReducer from "./player";
 
-export { albumSlice, artistSlice, playlistSlice, playerSlice, userSlice };
+export { playerReducer };

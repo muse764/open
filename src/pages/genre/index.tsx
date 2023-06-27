@@ -1,7 +1,15 @@
-export default function GenrePage() {
+import { Layout } from "../../components";
+
+const GenrePage = () => {
   return (
-    <div>
-      <h1>Genre</h1>
-    </div>
+    <>
+      <Layout>
+        <div>
+          <h1>Genre</h1>
+        </div>
+      </Layout>
+    </>
   );
-}
+};
+
+export default GenrePage;

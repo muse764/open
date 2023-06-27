@@ -4,19 +4,27 @@ import Footer from "./Footer";
 import CssBaseline from "@mui/material/CssBaseline";
 import CustomAppBar from "./AppBar";
 import LoginModal from "../Login/LoginModal";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import RegisterModal from "../Register/RegisterModal";
 import Cookies from "js-cookie";
 import { useFormik } from "formik";
-import axios from "axios";
 import * as Yup from "yup";
-import { toggleIsLoggedIn } from "../../redux/services/authSlice";
+import {
+  useLoginMutation,
+  useRefreshMutation,
+  useRegisterMutation,
+} from "../../redux/services/authApi";
+import { useGetMyProfileQuery } from "../../redux/services/meApi";
+import { useAddUserPlaylistMutation } from "../../redux/services/userApi";
 
 const drawerWidth = 240;
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+const Layout = ({ children }: { children: React.ReactNode }) => {
+  const [login] = useLoginMutation();
+  const [register] = useRegisterMutation();
+  const [refresh] = useRefreshMutation();
+  const { data } = useGetMyProfileQuery(Cookies.get("accessToken"));
   const [auth, setAuth] = useState(false);
-  const [userPlaylists, setUserPlaylists] = useState([]);
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [registerModalOpen, setRegisterModalOpen] = useState(false);
 
@@ -26,35 +34,22 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const handleRegisterModalOpen = () => setRegisterModalOpen(true);
   const handleRegisterModalClose = () => setRegisterModalOpen(false);
 
-  const api_url = import.meta.env.VITE_API_URL as string;
-
   const handleLogout = () => {
     Cookies.remove("accessToken");
     Cookies.remove("refreshToken");
     setAuth(false);
   };
 
-  function refreshAccessToken() {
-    fetch(`${api_url}/auth/refresh`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        refreshToken: Cookies.get("refreshToken"),
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        Cookies.set("accessToken", data.accessToken);
-      });
-  }
+  const refreshToken = useCallback(
+    async () => await refresh(Cookies.get("refreshToken")),
+    [refresh]
+  );
 
   useEffect(() => {
     Cookies.get("accessToken") ? setAuth(true) : setAuth(false);
 
-    Cookies.get("refreshToken") ? refreshAccessToken() : null;
-  }, []);
+    Cookies.get("refreshToken") ? refreshToken() : null;
+  }, [refreshToken]);
 
   const loginFormik = useFormik({
     initialValues: {
@@ -71,12 +66,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     }),
     onSubmit: async (values, helpers) => {
       try {
-        const response = await axios.post(`${api_url}/auth/login`, {
+        await login({
           email: values.email,
           password: values.password,
-        });
-        Cookies.set("accessToken", response.data.accessToken);
-        Cookies.set("refreshToken", response.data.refreshToken);
+        }).unwrap();
         setAuth(true);
         helpers.setStatus({ success: true });
         helpers.setSubmitting(false);
@@ -108,7 +101,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     }),
     onSubmit: async (values, helpers) => {
       try {
-        const response = await axios.post(`${api_url}/auth/register`, {
+        await register({
           full_name: values.full_name,
           username: values.username,
           email: values.email,
@@ -161,4 +154,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       />
     </Box>
   );
-}
+};
+
+export default Layout;

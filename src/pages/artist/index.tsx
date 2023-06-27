@@ -1,32 +1,37 @@
-import { useEffect, useState } from "react";
+import { Layout } from "../../components";
+import {
+  useGetArtistAlbumsQuery,
+  useGetArtistByIdQuery,
+} from "../../redux/services/artistApi";
+import { NotFoundPage } from "..";
+import { Album } from "../../models/artistsalbums";
 
-export default function ArtistPage() {
-  const [artist, setArtist] = useState({
-    full_name: "",
-  });
-
-  const api_url = import.meta.env.VITE_API_URL;
+const ArtistPage = () => {
   const id = window.location.pathname.split("/")[2];
+  const { data, error } = useGetArtistByIdQuery(id);
+  const { albums } = useGetArtistAlbumsQuery({
+    id,
+    limit: 10,
+    offset: 0,
+  }).data || { albums: [] };
 
-  function retrieveArtist() {
-    fetch(`${api_url}/artists/${id}`).then((res) => {
-      if (res.status === 200) {
-        res.json().then((data) => {
-          setArtist(data);
-        });
-      } else {
-        window.location.href = "/notfound";
-      }
-    });
+  if (error) {
+    return <NotFoundPage />;
   }
 
-  useEffect(() => {
-    retrieveArtist();
-  }, []);
-
   return (
-    <div>
-      <h1>{artist.full_name}</h1>
-    </div>
+    <>
+      <Layout>
+        <div>
+          <h1>{data?.full_name}</h1>
+
+          {albums.map((album: Album) => (
+            <p key={album.id}>{album.name}</p>
+          ))}
+        </div>
+      </Layout>
+    </>
   );
-}
+};
+
+export default ArtistPage;
