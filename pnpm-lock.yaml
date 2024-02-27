@@ -27,8 +27,8 @@ dependencies:
     specifier: ^6.19.4
     version: 6.19.4(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@mui/material@5.13.5)(@mui/system@5.13.5)(@types/react@18.2.58)(react-dom@18.2.0)(react@18.2.0)
   '@reduxjs/toolkit':
-    specifier: ^1.9.5
-    version: 1.9.5(react-redux@8.1.1)(react@18.2.0)
+    specifier: ^1.9.7
+    version: 1.9.7(react-redux@8.1.1)(react@18.2.0)
   '@types/js-cookie':
     specifier: ^3.0.3
     version: 3.0.3
@@ -1116,8 +1116,8 @@ packages:
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
     dev: false
 
-  /@reduxjs/toolkit@1.9.5(react-redux@8.1.1)(react@18.2.0):
-    resolution: {integrity: sha512-Rt97jHmfTeaxL4swLRNPD/zV4OxTes4la07Xc4hetpUW/vc75t5m1ANyxG6ymnEQ2FsLQsoMlYB2vV1sO3m8tQ==}
+  /@reduxjs/toolkit@1.9.7(react-redux@8.1.1)(react@18.2.0):
+    resolution: {integrity: sha512-t7v8ZPxhhKgOKtU+uyJT13lu4vL7az5aFi4IdoDs/eS548edn2M8Ik9h8fxgvMjGoAUVFSt6ZC1P5cWmQ014QQ==}
     peerDependencies:
       react: ^16.9.0 || ^17.0.0 || ^18
       react-redux: ^7.2.1 || ^8.0.2
