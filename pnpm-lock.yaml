@@ -30,8 +30,8 @@ dependencies:
     specifier: ^1.9.7
     version: 1.9.7(react-redux@8.1.1)(react@18.2.0)
   '@types/js-cookie':
-    specifier: ^3.0.3
-    version: 3.0.3
+    specifier: ^3.0.6
+    version: 3.0.6
   formik:
     specifier: ^2.4.2
     version: 2.4.2(react@18.2.0)
@@ -1163,8 +1163,8 @@ packages:
       hoist-non-react-statics: 3.3.2
     dev: false
 
-  /@types/js-cookie@3.0.3:
-    resolution: {integrity: sha512-Xe7IImK09HP1sv2M/aI+48a20VX+TdRJucfq4vfRVy6nWN8PYPOEnlMRSgxJAgYQIXJVL8dZ4/ilAM7dWNaOww==}
+  /@types/js-cookie@3.0.6:
+    resolution: {integrity: sha512-wkw9yd1kEXOPnvEeEV1Go1MmxtBJL0RR79aOTAApecWFVu7w0NNXNqhcWgvw2YgZDYadliXkl14pa3WXw5jlCQ==}
     dev: false
 
   /@types/json-schema@7.0.12:
