@@ -21,8 +21,8 @@ dependencies:
     specifier: ^5.13.5
     version: 5.13.5(@emotion/react@11.11.4)(@emotion/styled@11.11.0)(@types/react@18.2.58)(react-dom@18.2.0)(react@18.2.0)
   '@mui/x-data-grid':
-    specifier: ^6.8.0
-    version: 6.8.0(@mui/material@5.13.5)(@mui/system@5.13.5)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^6.19.5
+    version: 6.19.5(@mui/material@5.13.5)(@mui/system@5.13.5)(@types/react@18.2.58)(react-dom@18.2.0)(react@18.2.0)
   '@mui/x-date-pickers':
     specifier: ^6.19.4
     version: 6.19.4(@emotion/react@11.11.4)(@emotion/styled@11.11.0)(@mui/material@5.13.5)(@mui/system@5.13.5)(@types/react@18.2.58)(react-dom@18.2.0)(react@18.2.0)
@@ -837,7 +837,7 @@ packages:
       '@babel/runtime': 7.23.9
       '@emotion/is-prop-valid': 1.2.1
       '@mui/types': 7.2.4(@types/react@18.2.58)
-      '@mui/utils': 5.13.1(react@18.2.0)
+      '@mui/utils': 5.15.9(@types/react@18.2.58)(react@18.2.0)
       '@popperjs/core': 2.11.8
       '@types/react': 18.2.58
       clsx: 1.2.1
@@ -915,7 +915,7 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.23.9
-      '@mui/utils': 5.13.1(react@18.2.0)
+      '@mui/utils': 5.15.9(@types/react@18.2.58)(react@18.2.0)
       '@types/react': 18.2.58
       prop-types: 15.8.1
       react: 18.2.0
@@ -965,7 +965,7 @@ packages:
       '@mui/private-theming': 5.13.1(@types/react@18.2.58)(react@18.2.0)
       '@mui/styled-engine': 5.13.2(@emotion/react@11.11.4)(@emotion/styled@11.11.0)(react@18.2.0)
       '@mui/types': 7.2.4(@types/react@18.2.58)
-      '@mui/utils': 5.13.1(react@18.2.0)
+      '@mui/utils': 5.15.9(@types/react@18.2.58)(react@18.2.0)
       '@types/react': 18.2.58
       clsx: 1.2.1
       csstype: 3.1.2
@@ -1027,8 +1027,8 @@ packages:
       react-is: 18.2.0
     dev: false
 
-  /@mui/x-data-grid@6.8.0(@mui/material@5.13.5)(@mui/system@5.13.5)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-L4CJb2zJDkyBXItfY1QwXt57ap1vIigPGiNrmuJZ8APS1jHafO1dftBWSfJyDJXsnQ5UsDBXsX1nagX51AebpQ==}
+  /@mui/x-data-grid@6.19.5(@mui/material@5.13.5)(@mui/system@5.13.5)(@types/react@18.2.58)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-jV1ZqwyFslKqFScSn4t+xc/tNxLHOeJjz3HoeK+Wdf5t3bPM69pg/jLeg8TmOkAUY62JmQKCLVmcGWiR3AqUKQ==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       '@mui/material': ^5.4.1
@@ -1036,15 +1036,17 @@ packages:
       react: ^17.0.0 || ^18.0.0
       react-dom: ^17.0.0 || ^18.0.0
     dependencies:
-      '@babel/runtime': 7.22.5
+      '@babel/runtime': 7.23.9
       '@mui/material': 5.13.5(@emotion/react@11.11.4)(@emotion/styled@11.11.0)(@types/react@18.2.58)(react-dom@18.2.0)(react@18.2.0)
       '@mui/system': 5.13.5(@emotion/react@11.11.4)(@emotion/styled@11.11.0)(@types/react@18.2.58)(react@18.2.0)
-      '@mui/utils': 5.13.1(react@18.2.0)
-      clsx: 1.2.1
+      '@mui/utils': 5.15.9(@types/react@18.2.58)(react@18.2.0)
+      clsx: 2.1.0
       prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       reselect: 4.1.8
+    transitivePeerDependencies:
+      - '@types/react'
     dev: false
 
   /@mui/x-date-pickers@6.19.4(@emotion/react@11.11.4)(@emotion/styled@11.11.0)(@mui/material@5.13.5)(@mui/system@5.13.5)(@types/react@18.2.58)(react-dom@18.2.0)(react@18.2.0):
